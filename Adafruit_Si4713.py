@@ -301,7 +301,7 @@ class Adafruit_Si4713(Adafruit_I2C):
 		# RDSD0 & RDSMS (default)
 		self.setProperty(self.SI4713_PROP_TX_RDS_PS_MISC, 0x1808)
 		# 3 repeats (default)
-		self.setProperty(self.SI4713_PROP_TX_RDS_PS_REPEAT_COUNT, 3)
+		self.setProperty(self.SI4713_PROP_TX_RDS_PS_REPEAT_COUNT, 1)
 
 		self.setProperty(self.SI4713_PROP_TX_RDS_MESSAGE_COUNT, 1)
 		self.setProperty(self.SI4713_PROP_TX_RDS_PS_AF, 0xE0E0) # no AF
@@ -361,11 +361,14 @@ class Adafruit_Si4713(Adafruit_I2C):
                 D0 = (data >> 8) & 0xff
                 D1 = data & 0xff
 
-                res = self.sendCommand(self.SI4710_CMD_TX_RDS_BUFF, [0x04, B0, B1, C0, C1, D0, D1])
+                res = self.sendCommand(self.SI4710_CMD_TX_RDS_BUFF, [0x04, B0, B1, C0, C1, D0, D1, 0])
 
                 if res == -1:
                         self.restart()
                         return
+
+        def setLinzerSchnitteRDSEmpty(self):
+                res = self.sendCommand(self.SI4710_CMD_TX_RDS_BUFF, [0x06, 0x60, 0, 0, 0, 0, 0, 0])
 
 	def setGPIOctrl(self, x):
 		self.sendCommand(self.SI4710_CMD_GPO_CTL, [x])

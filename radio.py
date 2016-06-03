@@ -3,7 +3,7 @@
 from time import sleep
 from Adafruit_Si4713 import Adafruit_Si4713
 
-FMSTATION = 10100
+FMSTATION = 10480
 POWER = 90
 
 def printInfo():
@@ -32,5 +32,16 @@ else:
 
 		printInfo()
 
-		radio.setLinzerSchnitteRDS(0x03, 0xffff, 0x001a)
+
+		print "turning on"
+		radio.setLinzerSchnitteRDS(0x0e, 0xffff, 0x1410)
+                sleep(0.5)
+                radio.setLinzerSchnitteRDSEmpty()
+
+		sleep(3)
+
+		print "turning off"
+		radio.setLinzerSchnitteRDS(0x11, 0xffff, 0x0000)
+                sleep(1)
+                radio.setLinzerSchnitteRDSEmpty()
 		sleep(5)
