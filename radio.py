@@ -26,21 +26,11 @@ else:
 	radio.tuneFM(FMSTATION)
 
 	radio.beginRDS()
-	radio.setRDSbuffer(" -- empty -- ")
 
 	while True:
 
-		
+
 		printInfo()
 
-		radio.setRDSstation("- GNR -")
-		sleep(10)
-
-		radio.setRDSstation("Galaxy")
-		sleep(5)
-
-		radio.setRDSstation("News")
-		sleep(5)
-
-		radio.setRDSstation("Radio")
+		radio.setLinzerSchnitteRDS(0x03, 0xffff, 0x001a)
 		sleep(5)

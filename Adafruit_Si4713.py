@@ -135,7 +135,7 @@ class Adafruit_Si4713(Adafruit_I2C):
 
 	def setProperty(self, prop, val):
 		args = [0, prop >> 8, prop & 0xFF, val >> 8, val & 0xFF]
-		
+
 		res = self.bus.writeList(self.SI4710_CMD_SET_PROPERTY, args)
 
 		sleep(0.05)
@@ -177,7 +177,7 @@ class Adafruit_Si4713(Adafruit_I2C):
 		if self._rst > 0:
 			GPIO.setwarnings(False)
 			GPIO.setmode(GPIO.BCM)
-			
+
 			GPIO.setup(self._rst, GPIO.OUT)
 
 			# toggle pin
@@ -347,11 +347,25 @@ class Adafruit_Si4713(Adafruit_I2C):
 				secondByte = 0x06
 			else:
 				secondByte = 0x04
-			
+
 			res = self.sendCommand(self.SI4710_CMD_TX_RDS_BUFF, [secondByte, 0x20, i, ord(bufferArray[i*4]), ord(bufferArray[(i*4)+1]), ord(bufferArray[(i*4)+2]), ord(bufferArray[(i*4)+3]), 0])
 			if res == -1:
 				self.restart()
 				return
+
+        def setLinzerSchnitteRDS(self, command, address, data):
+                B0 = 0x60
+                B1 = command & 0x1f
+                C0 = (address >> 8) & 0xff
+                C1 = address & 0xff
+                D0 = (data >> 8) & 0xff
+                D1 = data & 0xff
+
+                res = self.sendCommand(self.SI4710_CMD_TX_RDS_BUFF, [0x04, B0, B1, C0, C1, D0, D1])
+
+                if res == -1:
+                        self.restart()
+                        return
 
 	def setGPIOctrl(self, x):
 		self.sendCommand(self.SI4710_CMD_GPO_CTL, [x])
@@ -401,6 +415,3 @@ if __name__ == '__main__':
 
 
 			sleep(2)
-
-
-
