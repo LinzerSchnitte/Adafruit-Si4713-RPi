@@ -2,6 +2,7 @@
 
 from time import sleep
 from Adafruit_Si4713 import Adafruit_Si4713
+import linzerschnitte
 
 FMSTATION = 10480
 POWER = 90
@@ -34,14 +35,18 @@ else:
 
 
 		print "turning on"
-		radio.setLinzerSchnitteRDS(0x0e, 0xffff, 0x1410)
+		radio.setLinzerSchnitteRDS(linzerschnitte.CMD_PATTERN_BREATH,
+                                           linzerschnitte.ADDRESS_ALL,
+                                           linzerschnitte.pattern_ramps(850, 100))
                 sleep(0.5)
                 radio.setLinzerSchnitteRDSEmpty()
 
-		sleep(3)
+		sleep(5)
 
 		print "turning off"
-		radio.setLinzerSchnitteRDS(0x11, 0xffff, 0x0000)
+		radio.setLinzerSchnitteRDS(linzerschnitte.CMD_PATTERN_OFF,
+                                           linzerschnitte.ADDRESS_ALL,
+                                           linzerschnitte.ZERO)
                 sleep(1)
                 radio.setLinzerSchnitteRDSEmpty()
-		sleep(5)
+		sleep(3)
