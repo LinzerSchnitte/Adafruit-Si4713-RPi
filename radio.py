@@ -34,9 +34,18 @@ else:
 		printInfo()
 
 
-		print "turning on"
+		print "turning on group FFF1"
 		radio.setLinzerSchnitteRDS(linzerschnitte.CMD_PATTERN_BREATH,
-                                           linzerschnitte.ADDRESS_ALL,
+                                           0xfff1,
+                                           linzerschnitte.pattern_ramps(850, 100))
+                sleep(0.5)
+                radio.setLinzerSchnitteRDSEmpty()
+
+		sleep(5)
+
+                print "turning on group FFD0"
+		radio.setLinzerSchnitteRDS(linzerschnitte.CMD_PATTERN_TWINKLE,
+                                           0xffd0,
                                            linzerschnitte.pattern_ramps(850, 100))
                 sleep(0.5)
                 radio.setLinzerSchnitteRDSEmpty()
