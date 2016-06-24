@@ -2,7 +2,7 @@
 
 ## LinzerSchnitte fork
 
-This is a fork of a library to use the Adafruit Si4713 FM transmitter module on a Raspberry Pi. It is adapted for use with the [LinzerSchnitte](http://www.aec.at/linzerschnitte) FM receiver device. It uses RDS group 6 to communicate with the LinzerSchnitte receivers. Group 6 functionality is not present in the upstream codebase.
+This is a fork of a library to use the [Adafruit Si4713](https://learn.adafruit.com/adafruit-si4713-fm-radio-transmitter-with-rds-rdbs-support/overview) FM transmitter module on a Raspberry Pi. It is adapted for use with the [LinzerSchnitte](http://www.aec.at/linzerschnitte) FM receiver device. It uses RDS group 6 to communicate with the LinzerSchnitte receivers. Group 6 functionality is not present in the upstream codebase.
 
 ## How to use
 
